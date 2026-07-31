@@ -36,20 +36,26 @@ h2 {
 }
 
 /* --- SECCIÓN DE LA CARTA Y SOBRE --- */
+/* --- SECCIÓN DE LA CARTA Y SOBRE (ACTUALIZADO) --- */
 .card-section {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    margin-top: 20px;
 }
 
 .envelope {
     position: relative;
-    width: 340px;
-    height: 220px;
+    width: 360px; /* Un poco más ancho para que se vea mejor */
+    height: auto; /* IMPORTANTE: Cambiamos altura fija por 'auto' */
+    min-height: 240px; /* Mínimo para que no se vea raro vacío */
     background: #e07a5f;
     border-radius: 0 0 15px 15px;
     cursor: pointer;
     box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    margin-bottom: 40px; /* Espacio con el carrusel */
+    transition: all 0.6s ease;
 }
 
 .lid {
@@ -58,8 +64,8 @@ h2 {
     left: 0;
     width: 0;
     height: 0;
-    border-left: 170px solid transparent;
-    border-right: 170px solid transparent;
+    border-left: 180px solid transparent; /* Ajustado a la mitad del ancho */
+    border-right: 180px solid transparent;
     border-top: 120px solid #f4a261;
     transform-origin: top;
     transition: transform 0.5s ease-in-out;
@@ -68,18 +74,18 @@ h2 {
 
 .heart {
     position: absolute;
-    top: 70px;
+    top: 60px; /* Un poco más arriba */
     left: 50%;
     transform: translate(-50%, -50%);
     background: #e63946;
     color: white;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     z-index: 5;
     box-shadow: 0 3px 6px rgba(0,0,0,0.2);
     transition: opacity 0.3s ease;
@@ -87,21 +93,31 @@ h2 {
 
 .letter {
     position: absolute;
-    bottom: 10px;
+    /* Inicialmente oculta dentro del sobre */
+    top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 85%;
-    height: 100px;
+    width: 90%;
+    /* IMPORTANTE: Altura automática para crecer con el texto */
+    height: auto;
+    min-height: 100px; /* Altura mínima inicial */
     background: #fffdf9;
-    padding: 15px 20px;
+    padding: 30px; /* Margen interno generoso */
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start; /* Alinear texto arriba */
     opacity: 0;
+    pointer-events: none; /* No se puede hacer clic cuando está oculta */
+}
+
+/* --- CLASE DE ESTADO: CUANDO SE ABRE --- */
+.envelope.open {
+    /* El sobre se estira para acomodar la carta abierta */
+    min-height: 460px; /* Ajusta este valor según cuánto crezca tu texto */
 }
 
 .envelope.open .lid {
@@ -114,33 +130,41 @@ h2 {
 }
 
 .envelope.open .letter {
-    transform: translate(-50%, -70px);
-    width: 320px;
-    height: 270px;
+    /* Se mueve hacia arriba y se expande */
+    transform: translate(-50%, -80px); /* Sube lo suficiente */
     z-index: 10;
     opacity: 1;
+    pointer-events: auto;
     box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    /* Aquí ocurre la magia: el sobre ahora define el espacio,
+       pero la carta tiene padding y altura auto */
 }
 
+/* --- Estilos del texto de la carta --- */
 .letter h3 {
     font-family: 'Sacramento', cursive;
-    font-size: 2.2rem;
+    font-size: 2.8rem; /* Un poco más grande */
     color: #e63946;
+    margin-bottom: 15px;
+    text-align: left;
 }
 
 .letter p {
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: #495057;
-    line-height: 1.6;
+    line-height: 1.8; /* Más espacio entre líneas para leer mejor */
+    margin-bottom: 10px;
+    text-align: justify; /* Justificado queda más formal */
 }
 
 .signature {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #e07a5f;
     text-align: right;
+    margin-top: 25px;
+    display: block;
 }
-
 /* --- SECCIÓN DEL CARRUSEL DE FOTOS --- */
 .gallery-section {
     width: 100%;
