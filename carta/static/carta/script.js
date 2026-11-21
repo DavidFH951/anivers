@@ -1,16 +1,6 @@
 const $ = s => document.querySelector(s);
 const song = $('#song');
 
-// Cambia tus frases aquí
-const frases = [
-    'Eres mi lugar favorito en el mundo ❤️',
-    'Contigo hasta el infinito y más allá ✨',
-    'Cada día a tu lado es mi día favorito 💖',
-    'Te elegiría una y mil veces más 💍',
-    'Mi corazón es tuyo, Kiara 💘',
-    'Gracias por existir y por quedarte conmigo 🌹'
-];
-
 // 1. Corazones que suben por el fondo
 function corazonFlotante() {
     const h = document.createElement('span');
@@ -66,7 +56,7 @@ document.addEventListener('keydown', e => {
 $('#introHeart').addEventListener('click', () => {
     explosion(innerWidth / 2, innerHeight / 2, 30);
     $('#intro').classList.add('open');
-    song.play().catch(() => {}); // si aún no subes cancion.mp3, no pasa nada
+    song.play().catch(() => {}); // si aún no hay canción, no pasa nada
 });
 
 // 5. Carta: romper el sello, abrir el sobre y desplegar la carta
@@ -95,7 +85,7 @@ ordenar();
 
 function siguienteFoto() {
     const top = fotos[0];
-    if (top.classList.contains('fly')) return;
+    if (!top || top.classList.contains('fly')) return;
     top.style.setProperty('--fx', (vistas % 2 ? -140 : 140) + '%');
     top.classList.add('fly');
     setTimeout(() => {
@@ -129,18 +119,9 @@ song.addEventListener('timeupdate', () => {
 $('#progress').addEventListener('input', e => {
     if (song.duration) song.currentTime = e.target.value / 100 * song.duration;
 });
-song.addEventListener('error', () => { $('#songName').textContent = 'Falta subir cancion.mp3'; });
 
 // Si pone un video, pausamos la canción para que no se mezclen
 document.querySelectorAll('video').forEach(v => v.addEventListener('play', () => song.pause()));
 
 // 8. Frases: tarjetas que se voltean
-frases.forEach(f => {
-    const c = document.createElement('button');
-    c.className = 'card';
-    c.setAttribute('aria-label', 'Voltear tarjeta');
-    c.innerHTML = '<div class="card-inner"><div class="card-face card-front">❤</div><div class="card-face card-back"></div></div>';
-    c.querySelector('.card-back').textContent = f;
-    c.addEventListener('click', () => c.classList.toggle('flipped'));
-    $('#cards').appendChild(c);
-});
+document.querySelectorAll('.card').forEach(c => c.addEventListener('click', () => c.classList.toggle('flipped')));
