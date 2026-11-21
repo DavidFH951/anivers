@@ -267,3 +267,129 @@ h2 {
 .carousel-btn.next {
     right: 15px;
 }
+
+/* --- PORTADA CON CORAZÓN --- */
+.intro {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    transition: opacity 1s ease, visibility 1s;
+}
+
+.intro p {
+    font-family: 'Sacramento', cursive;
+    font-size: 2.6rem;
+    color: #fff;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.intro-heart {
+    font-size: 9rem;
+    color: #e63946;
+    background: none;
+    border: none;
+    cursor: pointer;
+    animation: latido 1.2s infinite;
+    transition: transform 0.8s ease;
+}
+
+.intro.open .intro-heart { animation: none; transform: scale(12); }
+.intro.open { opacity: 0; visibility: hidden; }
+
+@keyframes latido {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.2); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+}
+
+/* Botón flotante de música */
+.music-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 50;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.music-btn.playing { animation: latido 1.2s infinite; }
+
+/* --- SECCIONES MÚSICA / VIDEOS / FRASES --- */
+.glass-section {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.glass-section audio { width: 100%; }
+
+.glass-section video {
+    width: 100%;
+    border-radius: 15px;
+    background: #000;
+}
+
+.music-title { color: #fff; font-weight: 600; text-align: center; }
+
+.phrase {
+    background: #fffdf9;
+    color: #e63946;
+    font-family: 'Sacramento', cursive;
+    font-size: 2rem;
+    text-align: center;
+    padding: 25px;
+    border-radius: 15px;
+    width: 100%;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.4s ease;
+}
+
+.phrase-btn {
+    background: #e63946;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Móviles: el sobre no debe salirse de la pantalla */
+@media (max-width: 400px) {
+    .envelope { width: 100%; }
+    .lid { border-left-width: calc(50vw - 20px); border-right-width: calc(50vw - 20px); }
+}
+
+/* La carta abierta ocupa su propio espacio y no tapa las fotos */
+.envelope.open .letter {
+    position: relative;
+    left: auto;
+    margin: 0 auto;
+    transform: translateY(-80px);
+}
