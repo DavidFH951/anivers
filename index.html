@@ -9,6 +9,16 @@
 </head>
 <body>
 
+    <!-- PORTADA: un corazón que se abre y empieza la música -->
+    <div class="intro" id="intro">
+        <button class="intro-heart" id="introHeart" aria-label="Abrir">❤</button>
+        <p>Toca el corazón, mi amor</p>
+    </div>
+
+    <!-- Pon tu canción aquí con el nombre cancion.mp3 -->
+    <audio id="song" src="cancion.mp3" loop></audio>
+    <button class="music-btn" id="musicBtn" aria-label="Música">🎵</button>
+
     <div class="container">
         <!-- SECCIÓN DE LA CARTA -->
         <section class="card-section">
@@ -89,6 +99,27 @@
                 <button class="carousel-btn prev" id="prevBtn">&#10094;</button>
                 <button class="carousel-btn next" id="nextBtn">&#10095;</button>
             </div>
+        </section>
+
+        <!-- SECCIÓN DE MÚSICA -->
+        <section class="glass-section">
+            <h2>Nuestra Canción</h2>
+            <p class="music-title">🎶 La canción que me recuerda a ti 🎶</p>
+            <audio controls src="cancion.mp3"></audio>
+        </section>
+
+        <!-- SECCIÓN DE VIDEOS (pon tus archivos video1.mp4, video2.mp4) -->
+        <section class="glass-section">
+            <h2>Nuestros Videos</h2>
+            <video controls playsinline src="video1.mp4"></video>
+            <video controls playsinline src="video2.mp4"></video>
+        </section>
+
+        <!-- SECCIÓN DE FRASES -->
+        <section class="glass-section">
+            <h2>Frases Para Ti</h2>
+            <p class="phrase" id="phrase">Toca aquí para leer algo bonito 💌</p>
+            <button class="phrase-btn" id="phraseBtn">Otra frase ❤️</button>
         </section>
     </div>
 
