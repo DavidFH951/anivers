@@ -4,124 +4,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para ti con mucho amor 💖</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Sacramento&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div id="hearts" aria-hidden="true"></div>
 
-    <!-- PORTADA: un corazón que se abre y empieza la música -->
+    <!-- PORTADA -->
     <div class="intro" id="intro">
-        <button class="intro-heart" id="introHeart" aria-label="Abrir">❤</button>
-        <p>Toca el corazón, mi amor</p>
+        <button class="intro-heart" id="introHeart" aria-label="Abrir la sorpresa">❤</button>
+        <p class="intro-title">Para ti, Kiara</p>
+        <p class="intro-hint">Toca el corazón</p>
     </div>
 
     <!-- Pon tu canción aquí con el nombre cancion.mp3 -->
-    <audio id="song" src="cancion.mp3" loop></audio>
-    <button class="music-btn" id="musicBtn" aria-label="Música">🎵</button>
+    <audio id="song" src="cancion.mp3" loop preload="metadata"></audio>
+    <button class="music-btn" id="musicBtn" aria-label="Pausar o poner la música">♫</button>
 
-    <div class="container">
-        <!-- SECCIÓN DE LA CARTA -->
-        <section class="card-section">
-            <h2>Ábreme con un click</h2>
-            <div class="envelope" id="envelopeToggle">
-                <div class="letter">
-                    <h3>Mi amor,</h3>
-                    <p>
-                        Mi Querida Kiara, se que no te escribo de hace tiempo una carta y queria aprovechar esta ocacion para hacerte no solo una carta a
-                        papel, si no, una carta de la mejor manera que se hacer ❤️</p>
-                    <p> Tu eres una chica que le da un proposito mas a mi vida, gracias por estar siempre 
-                        conmigo, en las buenas, en las malas, en nuestras malas rachas y en los momentos hermosos que tenemos juntos</p> 
-                  <p> Quiero decirte que eres la novia perfecta a mis ojos y no te cambiaria jamas por otra, no necesito ni imaginarlo porque lo que tengo ahora contigo, es lo mas hermoso
-                        y lo que siempre busque en alguien, gracias por aceptar alguien como yo, graciass por estar siempre conmigo</p>
-                  <p> Te amo con todo mi corazon y eso jamas va a cambiar, FELIZ DIA mi AMOR, a ti por ser la novia que tanto desee y por seguir siendo la persona que me enamore ❤️
-                    </p>
-                    <span class="signature">Con todo mi amor, Alonso</span>
+    <main>
+        <!-- 1. CARTA -->
+        <section class="scene active" id="carta">
+            <div class="inner">
+                <h2>Tengo algo para ti</h2>
+                <div class="envelope" id="envelope">
+                    <div class="env-back"></div>
+                    <div class="env-letter"><span>Para Kiara</span></div>
+                    <div class="env-front"></div>
+                    <div class="env-flap"></div>
+                    <button class="seal" id="seal" aria-label="Romper el sello y abrir la carta">A&amp;K</button>
                 </div>
-                <div class="lid"></div>
-                <div class="heart">❤</div>
+                <p class="hint">Rompe el sello para abrir la carta</p>
             </div>
         </section>
 
-        <!-- SECCIÓN DE CARRUSEL DE FOTOS -->
-        <section class="gallery-section">
-            <h2>Nuestros Momentos</h2>
-            <div class="carousel-container">
-                <div class="carousel-slides">
-    <!-- Foto 1 -->
-    <div class="slide active">
-        <img src="foto1.jpeg" alt="Foto1">
-        <p class="slide-caption">Nuestro paseo al Parque de las Leyendas💖</p>
-    </div>
-    <!-- Foto 2 -->
-    <div class="slide">
-        <img src="foto2.jpeg" alt="Foto2">
-        <p class="slide-caption">Los envidiosos diran que es IA✨</p>
-    </div>
-    <!-- Foto 3 -->
-    <div class="slide">
-        <img src="foto3.jpeg" alt="Foto3">
-        <p class="slide-caption">Cita en el cine para ver al Rey del POP 🌟</p>
-    </div>
-     <div class="slide">
-        <img src="foto4.jpeg" alt="Foto4">
-        <p class="slide-caption">Risas y momentos locos ✨</p>
-    </div>
-    <!-- Foto 3 -->
-    <div class="slide">
-        <img src="foto5.jpeg" alt="Foto5">
-        <p class="slide-caption">Paseo en San Borja🌟</p>
-    </div>
-     <div class="slide">
-        <img src="foto6.jpeg" alt="Foto6">
-        <p class="slide-caption">Hermosa mi novia en Pucallpa ✨</p>
-    </div>
-    <!-- Foto 3 -->
-    <div class="slide">
-        <img src="foto7.jpeg" alt="Foto7">
-        <p class="slide-caption">Momentos inolvidables en la biblioteca💖</p>
-    </div>
-     <div class="slide">
-        <img src="foto8.jpeg" alt="Foto8">
-        <p class="slide-caption">Nuestros domingos juntos❤️</p>
-    </div>
-    <!-- Foto 3 -->
-    <div class="slide">
-        <img src="foto9.jpeg" alt="Foto9">
-        <p class="slide-caption">Esta foto sigue siendo mi favorita❤️</p>
-    </div>
-    <div class="slide">
-        <img src="foto10.jpeg" alt="Foto10">
-        <p class="slide-caption">Metas a futuro mi amor❤️❤️</p>
-    </div>
-    <!-- Y así sucesivamente con foto4.jpeg, foto5.jpeg, etc., hasta la foto10.jpeg -->
-</div>
-                <!-- Botones de navegación directos -->
-                <button class="carousel-btn prev" id="prevBtn">&#10094;</button>
-                <button class="carousel-btn next" id="nextBtn">&#10095;</button>
+        <!-- 2. FOTOS -->
+        <section class="scene" id="fotos">
+            <div class="inner">
+                <h2>Nuestros momentos</h2>
+                <div class="photos" id="photos" role="button" tabindex="0" aria-label="Ver la siguiente foto">
+                    <figure class="polaroid"><img src="foto1.jpeg" alt="Foto 1"><figcaption>Nuestro paseo al Parque de las Leyendas💖</figcaption></figure>
+                    <figure class="polaroid"><img src="foto2.jpeg" alt="Foto 2"><figcaption>Los envidiosos diran que es IA✨</figcaption></figure>
+                    <figure class="polaroid"><img src="foto3.jpeg" alt="Foto 3"><figcaption>Cita en el cine para ver al Rey del POP 🌟</figcaption></figure>
+                    <figure class="polaroid"><img src="foto4.jpeg" alt="Foto 4"><figcaption>Risas y momentos locos ✨</figcaption></figure>
+                    <figure class="polaroid"><img src="foto5.jpeg" alt="Foto 5"><figcaption>Paseo en San Borja🌟</figcaption></figure>
+                    <figure class="polaroid"><img src="foto6.jpeg" alt="Foto 6"><figcaption>Hermosa mi novia en Pucallpa ✨</figcaption></figure>
+                    <figure class="polaroid"><img src="foto7.jpeg" alt="Foto 7"><figcaption>Momentos inolvidables en la biblioteca💖</figcaption></figure>
+                    <figure class="polaroid"><img src="foto8.jpeg" alt="Foto 8"><figcaption>Nuestros domingos juntos❤️</figcaption></figure>
+                    <figure class="polaroid"><img src="foto9.jpeg" alt="Foto 9"><figcaption>Esta foto sigue siendo mi favorita❤️</figcaption></figure>
+                    <figure class="polaroid"><img src="foto10.jpeg" alt="Foto 10"><figcaption>Metas a futuro mi amor❤️❤️</figcaption></figure>
+                </div>
+                <p class="hint">Toca la foto para ver la siguiente <span id="photoCount">1 / 10</span></p>
             </div>
         </section>
 
-        <!-- SECCIÓN DE MÚSICA -->
-        <section class="glass-section">
-            <h2>Nuestra Canción</h2>
-            <p class="music-title">🎶 La canción que me recuerda a ti 🎶</p>
-            <audio controls src="cancion.mp3"></audio>
+        <!-- 3. MÚSICA -->
+        <section class="scene" id="musica">
+            <div class="inner">
+                <h2>Nuestra canción</h2>
+                <div class="turntable">
+                    <div class="vinyl"><div class="vinyl-label"></div></div>
+                    <div class="arm"></div>
+                </div>
+                <p class="song-name" id="songName">La canción que me recuerda a ti</p>
+                <div class="player">
+                    <button class="play-btn" id="playBtn" aria-label="Reproducir o pausar">▶</button>
+                    <input type="range" id="progress" min="0" max="100" value="0" aria-label="Avance de la canción">
+                    <span id="time">0:00</span>
+                </div>
+            </div>
         </section>
 
-        <!-- SECCIÓN DE VIDEOS (pon tus archivos video1.mp4, video2.mp4) -->
-        <section class="glass-section">
-            <h2>Nuestros Videos</h2>
-            <video controls playsinline src="video1.mp4"></video>
-            <video controls playsinline src="video2.mp4"></video>
+        <!-- 4. VIDEOS (pon tus archivos video1.mp4, video2.mp4) -->
+        <section class="scene" id="videos">
+            <div class="inner">
+                <h2>Nuestros videos</h2>
+                <div class="video-list">
+                    <video controls playsinline preload="metadata" src="video1.mp4"></video>
+                    <video controls playsinline preload="metadata" src="video2.mp4"></video>
+                </div>
+            </div>
         </section>
 
-        <!-- SECCIÓN DE FRASES -->
-        <section class="glass-section">
-            <h2>Frases Para Ti</h2>
-            <p class="phrase" id="phrase">Toca aquí para leer algo bonito 💌</p>
-            <button class="phrase-btn" id="phraseBtn">Otra frase ❤️</button>
+        <!-- 5. FRASES (se llenan desde script.js) -->
+        <section class="scene" id="frases">
+            <div class="inner">
+                <h2>Cosas que te quiero decir</h2>
+                <div class="cards" id="cards"></div>
+                <p class="hint">Toca cada tarjeta para voltearla</p>
+            </div>
         </section>
+    </main>
+
+    <!-- CARTA ABIERTA -->
+    <div class="paper" id="paper" role="dialog" aria-modal="true" aria-label="Carta">
+        <article class="sheet">
+            <button class="close" id="closeLetter" aria-label="Guardar la carta">✕</button>
+            <h3>Mi amor,</h3>
+            <p style="--i:0">Mi Querida Kiara, se que no te escribo de hace tiempo una carta y queria aprovechar esta ocacion para hacerte no solo una carta a papel, si no, una carta de la mejor manera que se hacer ❤️</p>
+            <p style="--i:1">Tu eres una chica que le da un proposito mas a mi vida, gracias por estar siempre conmigo, en las buenas, en las malas, en nuestras malas rachas y en los momentos hermosos que tenemos juntos</p>
+            <p style="--i:2">Quiero decirte que eres la novia perfecta a mis ojos y no te cambiaria jamas por otra, no necesito ni imaginarlo porque lo que tengo ahora contigo, es lo mas hermoso y lo que siempre busque en alguien, gracias por aceptar alguien como yo, graciass por estar siempre conmigo</p>
+            <p style="--i:3">Te amo con todo mi corazon y eso jamas va a cambiar, FELIZ DIA mi AMOR, a ti por ser la novia que tanto desee y por seguir siendo la persona que me enamore ❤️</p>
+            <footer style="--i:4">
+                <span>Con todo mi amor,</span>
+                <strong>Alonso</strong>
+            </footer>
+        </article>
     </div>
+
+    <nav class="nav" aria-label="Secciones">
+        <button class="active" data-go="0"><span>💌</span>Carta</button>
+        <button data-go="1"><span>📷</span>Fotos</button>
+        <button data-go="2"><span>🎵</span>Música</button>
+        <button data-go="3"><span>🎬</span>Videos</button>
+        <button data-go="4"><span>💬</span>Frases</button>
+    </nav>
 
     <script src="script.js"></script>
 </body>

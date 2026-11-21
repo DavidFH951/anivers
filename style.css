@@ -1,395 +1,566 @@
-/* --- ESTILOS GENERALES Y RESET --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+    --velvet: #2b0a17;
+    --wine: #5a1530;
+    --rose: #e0566e;
+    --blush: #f6c9d2;
+    --paper: #fdf6ea;
+    --ink: #3d2a25;
+    --gold: #d6a85a;
+    --script: 'Pinyon Script', cursive;
+    --serif: 'Cormorant Garamond', Georgia, serif;
 }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #a1c4fd 100%);
-    background-attachment: fixed;
-    font-family: 'Poppins', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 40px 20px;
+    background: radial-gradient(ellipse at 50% 0%, var(--wine) 0%, var(--velvet) 70%);
+    background-color: var(--velvet);
+    color: var(--blush);
+    font-family: var(--serif);
+    min-height: 100dvh;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.container {
-    width: 100%;
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    padding-bottom: 50px;
-}
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
 h2 {
+    font-family: var(--script);
+    font-weight: 400;
+    font-size: clamp(2.4rem, 9vw, 3.4rem);
+    color: var(--gold);
     text-align: center;
-    color: #fff;
-    font-family: 'Sacramento', cursive;
-    font-size: 3.2rem;
-    margin-bottom: 15px;
-    text-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    font-weight: normal;
+    line-height: 1.2;
 }
 
-/* --- SECCIÓN DE LA CARTA Y SOBRE --- */
-/* --- SECCIÓN DE LA CARTA Y SOBRE (ACTUALIZADO) --- */
-.card-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    margin-top: 20px;
-}
-
-.envelope {
-    position: relative;
-    width: 360px; /* Un poco más ancho para que se vea mejor */
-    height: auto; /* IMPORTANTE: Cambiamos altura fija por 'auto' */
-    min-height: 240px; /* Mínimo para que no se vea raro vacío */
-    background: #e07a5f;
-    border-radius: 0 0 15px 15px;
-    cursor: pointer;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-    margin-bottom: 40px; /* Espacio con el carrusel */
-    transition: all 0.6s ease;
-}
-
-.lid {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 180px solid transparent; /* Ajustado a la mitad del ancho */
-    border-right: 180px solid transparent;
-    border-top: 120px solid #f4a261;
-    transform-origin: top;
-    transition: transform 0.5s ease-in-out;
-    z-index: 4;
-}
-
-.heart {
-    position: absolute;
-    top: 60px; /* Un poco más arriba */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #e63946;
-    color: white;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.3rem;
-    z-index: 5;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-    transition: opacity 0.3s ease;
-}
-
-.letter {
-    position: absolute;
-    /* Inicialmente oculta dentro del sobre */
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    /* IMPORTANTE: Altura automática para crecer con el texto */
-    height: auto;
-    min-height: 100px; /* Altura mínima inicial */
-    background: #fffdf9;
-    padding: 30px; /* Margen interno generoso */
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Alinear texto arriba */
-    opacity: 0;
-    pointer-events: none; /* No se puede hacer clic cuando está oculta */
-}
-
-/* --- CLASE DE ESTADO: CUANDO SE ABRE --- */
-.envelope.open {
-    /* El sobre se estira para acomodar la carta abierta */
-    min-height: 460px; /* Ajusta este valor según cuánto crezca tu texto */
-}
-
-.envelope.open .lid {
-    transform: rotateX(180deg);
-    z-index: 0;
-}
-
-.envelope.open .heart {
-    opacity: 0;
-}
-
-.envelope.open .letter {
-    /* Se mueve hacia arriba y se expande */
-    transform: translate(-50%, -80px); /* Sube lo suficiente */
-    z-index: 10;
-    opacity: 1;
-    pointer-events: auto;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-    /* Aquí ocurre la magia: el sobre ahora define el espacio,
-       pero la carta tiene padding y altura auto */
-}
-
-/* --- Estilos del texto de la carta --- */
-.letter h3 {
-    font-family: 'Sacramento', cursive;
-    font-size: 2.8rem; /* Un poco más grande */
-    color: #e63946;
-    margin-bottom: 15px;
-    text-align: left;
-}
-
-.letter p {
-    font-size: 1rem;
-    color: #495057;
-    line-height: 1.8; /* Más espacio entre líneas para leer mejor */
-    margin-bottom: 10px;
-    text-align: justify; /* Justificado queda más formal */
-}
-
-.signature {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #e07a5f;
-    text-align: right;
-    margin-top: 25px;
-    display: block;
-}
-/* --- SECCIÓN DEL CARRUSEL DE FOTOS --- */
-.gallery-section {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-}
-
-.carousel-container {
-    position: relative;
-    width: 100%;
-    max-width: 480px;
-    height: 320px;
-    margin: 0 auto;
-    overflow: hidden;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    background: #fff;
-}
-
-.carousel-slides {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
-    transform: scale(0.95);
-    display: flex;
-    flex-direction: column;
-}
-
-.slide.active {
-    opacity: 1;
-    transform: scale(1);
-    z-index: 2;
-}
-
-.slide img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-}
-
-.slide-caption {
-    width: 100%;
-    height: 70px;
-    background: #fff;
-    color: #444;
-    padding: 10px 15px;
-    font-size: 0.95rem;
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Botones flotantes del carrusel */
-.carousel-btn {
-    position: absolute;
-    top: 45%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.85);
-    color: #333;
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
+.hint {
+    font-style: italic;
     font-size: 1.1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    transition: background 0.3s ease, transform 0.2s ease;
+    opacity: .75;
+    text-align: center;
 }
 
-.carousel-btn:hover {
-    background: white;
-    transform: translateY(-50%) scale(1.1);
+/* --- CORAZONES DE FONDO Y AL TOCAR --- */
+#hearts { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+
+.float-heart {
+    position: absolute;
+    bottom: -40px;
+    color: var(--rose);
+    opacity: .35;
+    animation: subir linear forwards;
 }
 
-.carousel-btn.prev {
-    left: 15px;
+@keyframes subir {
+    to { transform: translateY(-110vh) rotate(var(--rot)); opacity: 0; }
 }
 
-.carousel-btn.next {
-    right: 15px;
+.burst {
+    position: fixed;
+    z-index: 200;
+    pointer-events: none;
+    color: var(--rose);
+    transform: translate(-50%, -50%);
+    animation: estallar .9s ease-out forwards;
 }
 
-/* --- PORTADA CON CORAZÓN --- */
+@keyframes estallar {
+    to { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(.3); opacity: 0; }
+}
+
+/* --- PORTADA --- */
 .intro {
     position: fixed;
     inset: 0;
     z-index: 100;
-    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    background: var(--velvet);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
-    transition: opacity 1s ease, visibility 1s;
-}
-
-.intro p {
-    font-family: 'Sacramento', cursive;
-    font-size: 2.6rem;
-    color: #fff;
-    text-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    gap: 8px;
+    transition: opacity 1s ease .3s, visibility 1s .3s;
 }
 
 .intro-heart {
-    font-size: 9rem;
-    color: #e63946;
+    font-size: 8rem;
+    line-height: 1;
+    color: var(--rose);
     background: none;
     border: none;
-    cursor: pointer;
-    animation: latido 1.2s infinite;
-    transition: transform 0.8s ease;
+    filter: drop-shadow(0 0 30px rgba(224, 86, 110, .6));
+    animation: latido 1.3s infinite;
+    transition: transform .9s ease, opacity .9s;
 }
 
-.intro.open .intro-heart { animation: none; transform: scale(12); }
-.intro.open { opacity: 0; visibility: hidden; }
+.intro-title { font-family: var(--script); font-size: 3rem; color: var(--gold); }
+.intro-hint { font-style: italic; opacity: .7; font-size: 1.1rem; }
+
+.intro.open { opacity: 0; visibility: hidden; pointer-events: none; }
+.intro.open .intro-heart { animation: none; transform: scale(14); opacity: 0; }
 
 @keyframes latido {
     0%, 100% { transform: scale(1); }
-    15% { transform: scale(1.2); }
+    15% { transform: scale(1.18); }
     30% { transform: scale(1); }
-    45% { transform: scale(1.15); }
+    45% { transform: scale(1.12); }
 }
 
-/* Botón flotante de música */
-.music-btn {
+/* --- ESCENAS (una pantalla a la vez) --- */
+.scene {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 50;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: none;
-    background: #fff;
-    font-size: 1.4rem;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 70px 16px 110px;
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(40px) scale(.97);
+    transition: opacity .6s ease, transform .6s ease, visibility .6s;
 }
 
-.music-btn.playing { animation: latido 1.2s infinite; }
+.scene.active { opacity: 1; visibility: visible; transform: none; }
 
-/* --- SECCIONES MÚSICA / VIDEOS / FRASES --- */
-.glass-section {
+/* margin:auto centra sin cortar el contenido cuando es más alto que la pantalla */
+.inner {
+    margin: auto;
     width: 100%;
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    max-width: 560px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 24px;
 }
 
-.glass-section audio { width: 100%; }
-
-.glass-section video {
-    width: 100%;
-    border-radius: 15px;
-    background: #000;
+/* --- NAVEGACIÓN --- */
+.nav {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    display: flex;
+    gap: 2px;
+    padding: 6px;
+    border-radius: 999px;
+    background: rgba(43, 10, 23, .75);
+    border: 1px solid rgba(214, 168, 90, .35);
+    backdrop-filter: blur(10px);
+    max-width: calc(100vw - 32px);
 }
 
-.music-title { color: #fff; font-weight: 600; text-align: center; }
+.nav button {
+    background: none;
+    border: none;
+    border-radius: 999px;
+    padding: 6px 10px;
+    font-size: .85rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: .6;
+    transition: opacity .3s, background .3s;
+}
 
-.phrase {
-    background: #fffdf9;
-    color: #e63946;
-    font-family: 'Sacramento', cursive;
+.nav button span { font-size: 1.25rem; line-height: 1.2; }
+.nav button.active { opacity: 1; background: rgba(214, 168, 90, .2); color: var(--gold); }
+
+.music-btn {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 50;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid rgba(214, 168, 90, .5);
+    background: rgba(43, 10, 23, .75);
+    color: var(--gold);
+    font-size: 1.4rem;
+}
+
+.playing .music-btn { animation: latido 1.3s infinite; }
+
+/* --- SOBRE --- */
+.envelope {
+    position: relative;
+    width: min(340px, 86vw);
+    aspect-ratio: 3 / 2;
+    perspective: 1200px;
+    margin-top: 70px;
+}
+
+.env-back {
+    position: absolute;
+    inset: 0;
+    background: #b8324c;
+    border-radius: 6px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, .45);
+}
+
+.env-letter {
+    position: absolute;
+    left: 7%;
+    right: 7%;
+    top: 6%;
+    height: 88%;
+    z-index: 2;
+    background: var(--paper);
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    padding-top: 14%;
+    font-family: var(--script);
     font-size: 2rem;
-    text-align: center;
-    padding: 25px;
-    border-radius: 15px;
+    color: var(--rose);
+    transition: transform .9s cubic-bezier(.3, 1.2, .5, 1) .5s;
+}
+
+.env-front {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    border-radius: 6px;
+    background: linear-gradient(160deg, #e57a8c, #cf4a63);
+    clip-path: polygon(0 0, 50% 54%, 100% 0, 100% 100%, 0 100%);
+}
+
+.env-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    min-height: 120px;
+    height: 58%;
+    z-index: 4;
+    background: linear-gradient(180deg, #c43c56, #a52a43);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top;
+    transition: transform .7s ease, z-index 0s .35s;
+}
+
+.seal {
+    position: absolute;
+    top: 58%;
+    left: 50%;
+    z-index: 5;
+    width: 66px;
+    height: 66px;
+    transform: translate(-50%, -50%);
+    border: none;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #c9283f, #7a0f22 70%);
+    box-shadow: 0 0 0 4px #8d1428, 0 6px 14px rgba(0, 0, 0, .5), inset 0 -3px 6px rgba(0, 0, 0, .35);
+    color: var(--gold);
+    font-family: var(--script);
+    font-size: 1.5rem;
+    animation: brillo 2.4s infinite;
+    transition: transform .5s ease, opacity .5s;
+}
+
+@keyframes brillo {
+    0%, 100% { box-shadow: 0 0 0 4px #8d1428, 0 6px 14px rgba(0, 0, 0, .5), 0 0 0 0 rgba(214, 168, 90, .5); }
+    50% { box-shadow: 0 0 0 4px #8d1428, 0 6px 14px rgba(0, 0, 0, .5), 0 0 0 14px rgba(214, 168, 90, 0); }
+}
+
+.envelope.open .seal { transform: translate(-50%, -50%) scale(1.6) rotate(20deg); opacity: 0; pointer-events: none; }
+.envelope.open .env-flap { transform: rotateX(180deg); z-index: 1; }
+.envelope.open .env-letter { transform: translateY(-55%); }
+
+/* --- CARTA ABIERTA --- */
+.paper {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    padding: 16px;
+    overflow-y: auto;
+    background: rgba(20, 4, 10, .7);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .6s, visibility .6s;
+    perspective: 1200px;
+}
+
+.paper.show { opacity: 1; visibility: visible; }
+
+.sheet {
+    position: relative;
+    margin: auto;
+    width: min(560px, 100%);
+    padding: 56px clamp(24px, 7vw, 56px) 48px;
+    background:
+        radial-gradient(ellipse at center, transparent 60%, rgba(160, 110, 60, .12) 100%),
+        var(--paper);
+    color: var(--ink);
+    border-radius: 2px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, .6);
+    outline: 1px solid rgba(214, 168, 90, .7);
+    outline-offset: -14px;
+    transform: translateY(80px) rotateX(25deg) scale(.9);
+    transform-origin: bottom;
+    transition: transform .9s cubic-bezier(.2, .9, .3, 1);
+}
+
+.paper.show .sheet { transform: none; }
+
+.sheet h3 {
+    font-family: var(--script);
+    font-weight: 400;
+    font-size: 3.2rem;
+    color: #a3203b;
+    margin-bottom: 18px;
+}
+
+.sheet p, .sheet footer {
+    font-size: 1.25rem;
+    line-height: 1.75;
+    margin-bottom: 16px;
+    hyphens: auto;
+    opacity: 0;
+}
+
+.paper.show .sheet p,
+.paper.show .sheet footer {
+    animation: aparecer .9s ease forwards;
+    animation-delay: calc(.7s + var(--i) * .45s);
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(12px); filter: blur(3px); }
+    to { opacity: 1; transform: none; filter: none; }
+}
+
+.sheet p:first-of-type::first-letter {
+    float: left;
+    font-family: var(--script);
+    font-size: 4.2rem;
+    line-height: .8;
+    padding: 8px 8px 0 0;
+    color: #a3203b;
+}
+
+.sheet footer {
+    margin-top: 28px;
+    text-align: right;
+    font-style: italic;
+}
+
+.sheet footer strong {
+    display: block;
+    font-family: var(--script);
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2.8rem;
+    color: #a3203b;
+}
+
+.close {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(61, 42, 37, .3);
+    background: none;
+    color: var(--ink);
+}
+
+/* --- POLAROIDS --- */
+.photos {
+    position: relative;
+    width: min(300px, 76vw);
+    aspect-ratio: 4 / 5;
+    cursor: pointer;
+}
+
+.polaroid {
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    padding: 12px 12px 64px;
+    border-radius: 2px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .45);
+    transform: rotate(var(--r));
+    transition: transform .5s ease, opacity .5s ease;
+}
+
+.polaroid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+}
+
+.polaroid figcaption {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 8px;
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.4s ease;
+    text-align: center;
+    font-family: var(--script);
+    font-size: 1.35rem;
+    line-height: 1.1;
+    color: #333;
 }
 
-.phrase-btn {
-    background: #e63946;
-    color: #fff;
+.polaroid.fly { transform: translateX(var(--fx)) rotate(30deg); opacity: 0; }
+
+#photoCount { display: block; font-style: normal; margin-top: 4px; color: var(--gold); }
+
+/* --- TOCADISCOS --- */
+.turntable { position: relative; width: min(280px, 72vw); aspect-ratio: 1; }
+
+.vinyl {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 30% 25%, rgba(255, 255, 255, .12), transparent 40%),
+        repeating-radial-gradient(circle, #141014 0 2px, #231c22 3px 4px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .6);
+    display: grid;
+    place-items: center;
+    animation: girar 4s linear infinite paused;
+}
+
+.playing .vinyl { animation-play-state: running; }
+
+@keyframes girar { to { transform: rotate(360deg); } }
+
+.vinyl-label {
+    width: 38%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: url(foto9.jpeg) center / cover;
+    border: 4px solid var(--rose);
+}
+
+.arm {
+    position: absolute;
+    top: -6%;
+    right: 4%;
+    width: 7px;
+    height: 58%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #bbb, #eee);
+    transform-origin: 50% 0;
+    transform: rotate(-6deg);
+    transition: transform .8s ease;
+}
+
+.arm::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: var(--gold);
+}
+
+.playing .arm { transform: rotate(22deg); }
+
+.song-name { font-style: italic; font-size: 1.3rem; text-align: center; }
+
+.player { display: flex; align-items: center; gap: 14px; width: min(340px, 100%); }
+
+.play-btn {
+    flex: none;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
     border: none;
-    padding: 12px 25px;
-    border-radius: 30px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    background: var(--rose);
+    color: #fff;
+    font-size: 1.3rem;
+    box-shadow: 0 6px 18px rgba(224, 86, 110, .5);
 }
 
-/* Móviles: el sobre no debe salirse de la pantalla */
-@media (max-width: 400px) {
-    .envelope { width: 100%; }
-    .lid { border-left-width: calc(50vw - 20px); border-right-width: calc(50vw - 20px); }
+.player input { flex: 1; accent-color: var(--rose); }
+#time { font-variant-numeric: tabular-nums; min-width: 3.2em; }
+
+/* --- VIDEOS --- */
+.video-list { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+
+.video-list video {
+    width: 100%;
+    border-radius: 10px;
+    background: #000;
+    border: 1px solid rgba(214, 168, 90, .35);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, .5);
 }
 
-/* La carta abierta ocupa su propio espacio y no tapa las fotos */
-.envelope.open .letter {
+/* --- FRASES (tarjetas que se voltean) --- */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    width: 100%;
+}
+
+.card {
+    aspect-ratio: 1 / 1.1;
+    perspective: 800px;
+    background: none;
+    border: none;
+}
+
+.card-inner {
     position: relative;
-    left: auto;
-    margin: 0 auto;
-    transform: translateY(-80px);
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform .7s cubic-bezier(.4, 1.4, .5, 1);
+}
+
+.card.flipped .card-inner { transform: rotateY(180deg); }
+
+.card-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+    text-align: center;
+}
+
+.card-front {
+    background: linear-gradient(150deg, #b8324c, #6e1229);
+    border: 1px solid rgba(214, 168, 90, .5);
+    font-size: 2.4rem;
+    color: var(--gold);
+}
+
+.card-back {
+    background: var(--paper);
+    color: #a3203b;
+    font-family: var(--script);
+    font-size: 1.45rem;
+    line-height: 1.2;
+    transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+    #hearts { display: none; }
 }
