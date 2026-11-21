@@ -491,16 +491,89 @@ h2 {
 .player input { flex: 1; accent-color: var(--rose); }
 #time { font-variant-numeric: tabular-nums; min-width: 3.2em; }
 
-/* --- VIDEOS --- */
-.video-list { display: flex; flex-direction: column; gap: 20px; width: 100%; }
-
-.video-list video {
-    width: 100%;
-    border-radius: 10px;
-    background: #000;
-    border: 1px solid rgba(214, 168, 90, .35);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, .5);
+/* --- VIDEOS: pantalla grande + miniaturas --- */
+.screen {
+    position: relative;
+    padding: 10px;
+    border-radius: 14px;
+    background: linear-gradient(160deg, #3a1020, #1a0610);
+    border: 1px solid rgba(214, 168, 90, .6);
+    box-shadow: 0 0 0 4px rgba(214, 168, 90, .12), 0 0 60px rgba(224, 86, 110, .35), 0 25px 50px rgba(0, 0, 0, .6);
 }
+
+.screen video {
+    display: block;
+    width: 100%;
+    max-height: 56dvh;
+    border-radius: 6px;
+    background: #000;
+    object-fit: contain;
+}
+
+.video-title {
+    font-family: var(--script);
+    font-size: 2rem;
+    color: var(--gold);
+    text-align: center;
+    margin-top: -8px;
+}
+
+.reel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(96px, 120px));
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.reel-item {
+    position: relative;
+    padding: 0;
+    border: 1px solid rgba(214, 168, 90, .3);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #1a0610;
+    opacity: .7;
+    transition: opacity .3s, transform .3s, border-color .3s;
+}
+
+.reel-item video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.reel-item::after {
+    content: '▶';
+    position: absolute;
+    top: 36%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: .8rem;
+    color: #fff;
+    background: rgba(224, 86, 110, .85);
+}
+
+.reel-item span {
+    display: block;
+    padding: 6px 6px 8px;
+    font-size: .95rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.reel-item:hover { opacity: 1; }
+.reel-item.active { opacity: 1; border-color: var(--gold); transform: translateY(-3px); }
+.reel-item.active::after { content: '♥'; font-size: 1rem; }
 
 /* --- FRASES (tarjetas que se voltean) --- */
 .cards {

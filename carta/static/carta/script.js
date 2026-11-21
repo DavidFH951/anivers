@@ -120,6 +120,16 @@ $('#progress').addEventListener('input', e => {
     if (song.duration) song.currentTime = e.target.value / 100 * song.duration;
 });
 
+// Videos: al tocar una miniatura se pone en la pantalla grande
+document.querySelectorAll('.reel-item').forEach(item => item.addEventListener('click', () => {
+    const main = $('#mainVideo');
+    main.src = item.dataset.src;
+    $('#videoTitle').textContent = item.dataset.title;
+    document.querySelectorAll('.reel-item').forEach(i => i.classList.toggle('active', i === item));
+    main.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    main.play().catch(() => {});
+}));
+
 // Si pone un video, pausamos la canción para que no se mezclen
 document.querySelectorAll('video').forEach(v => v.addEventListener('play', () => song.pause()));
 

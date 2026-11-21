@@ -70,10 +70,22 @@
         <section class="scene" id="videos">
             <div class="inner">
                 <h2>Nuestros videos</h2>
-                <div class="video-list">
-                    {% for video in videos %}<video controls playsinline preload="metadata" src="{{ video.archivo.url }}"></video>
-                    {% empty %}<p class="hint">Sube videos desde el admin</p>{% endfor %}
+                {% if videos %}
+                <div class="screen">
+                    <video id="mainVideo" controls playsinline preload="metadata" src="{{ videos.0.archivo.url }}"></video>
                 </div>
+                <p class="video-title" id="videoTitle">{{ videos.0 }}</p>
+                {% if videos|length > 1 %}
+                <div class="reel">
+                    {% for video in videos %}
+                    <button class="reel-item{% if forloop.first %} active{% endif %}" data-src="{{ video.archivo.url }}" data-title="{{ video }}" aria-label="Ver {{ video }}">
+                        <video muted playsinline preload="metadata" src="{{ video.archivo.url }}#t=0.5" tabindex="-1"></video>
+                        <span>{{ video }}</span>
+                    </button>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% else %}<p class="hint">Sube videos desde el admin</p>{% endif %}
             </div>
         </section>
 
