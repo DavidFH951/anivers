@@ -1,4 +1,4 @@
-{% load static %}<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +6,7 @@
     <title>Para ti con mucho amor 💖</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'carta/style.css' %}">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="hearts" aria-hidden="true"></div>
@@ -14,11 +14,11 @@
     <!-- PORTADA -->
     <div class="intro" id="intro">
         <button class="intro-heart" id="introHeart" aria-label="Abrir la sorpresa">❤</button>
-        <p class="intro-title">Para ti, {{ carta.para }}</p>
+        <p class="intro-title" id="introTitle"></p>
         <p class="intro-hint">Toca el corazón</p>
     </div>
 
-    <audio id="song"{% if carta.cancion %} src="{{ carta.cancion.url }}"{% endif %} loop preload="metadata"></audio>
+    <audio id="song" loop preload="metadata"></audio>
     <button class="music-btn" id="musicBtn" aria-label="Pausar o poner la música">♫</button>
 
     <main>
@@ -28,10 +28,10 @@
                 <h2>Tengo algo para ti</h2>
                 <div class="envelope" id="envelope">
                     <div class="env-back"></div>
-                    <div class="env-letter"><span>Para {{ carta.para }}</span></div>
+                    <div class="env-letter"><span id="envTo"></span></div>
                     <div class="env-front"></div>
                     <div class="env-flap"></div>
-                    <button class="seal" id="seal" aria-label="Romper el sello y abrir la carta">{{ carta.firma|first }}&amp;{{ carta.para|first }}</button>
+                    <button class="seal" id="seal" aria-label="Romper el sello y abrir la carta"></button>
                 </div>
                 <p class="hint">Rompe el sello para abrir la carta</p>
             </div>
@@ -41,11 +41,8 @@
         <section class="scene" id="fotos">
             <div class="inner">
                 <h2>Nuestros momentos</h2>
-                <div class="photos" id="photos" role="button" tabindex="0" aria-label="Ver la siguiente foto">
-                    {% for foto in fotos %}<figure class="polaroid"><img src="{{ foto.imagen.url }}" alt="Foto {{ forloop.counter }}"><figcaption>{{ foto.texto }}</figcaption></figure>
-                    {% endfor %}
-                </div>
-                <p class="hint">Toca la foto para ver la siguiente <span id="photoCount">1 / {{ fotos|length }}</span></p>
+                <div class="photos" id="photos" role="button" tabindex="0" aria-label="Ver la siguiente foto">                </div>
+                <p class="hint">Toca la foto para ver la siguiente <span id="photoCount"></span></p>
             </div>
         </section>
 
@@ -54,10 +51,10 @@
             <div class="inner">
                 <h2>Nuestra canción</h2>
                 <div class="turntable">
-                    <div class="vinyl"><div class="vinyl-label"{% if fotos %} style="background-image: url('{{ fotos.last.imagen.url }}')"{% endif %}></div></div>
+                    <div class="vinyl"><div class="vinyl-label"></div></div>
                     <div class="arm"></div>
                 </div>
-                <p class="song-name" id="songName">{% if carta.cancion %}{{ carta.nombre_cancion }}{% else %}Sube la canción desde el admin{% endif %}</p>
+                <p class="song-name" id="songName"></p>
                 <div class="player">
                     <button class="play-btn" id="playBtn" aria-label="Reproducir o pausar">▶</button>
                     <input type="range" id="progress" min="0" max="100" value="0" aria-label="Avance de la canción">
@@ -70,10 +67,7 @@
         <section class="scene" id="videos">
             <div class="inner">
                 <h2>Nuestros videos</h2>
-                <div class="video-list">
-                    {% for video in videos %}<video controls playsinline preload="metadata" src="{{ video.archivo.url }}"></video>
-                    {% empty %}<p class="hint">Sube videos desde el admin</p>{% endfor %}
-                </div>
+                <div class="video-list" id="videoList"></div>
             </div>
         </section>
 
@@ -81,10 +75,7 @@
         <section class="scene" id="frases">
             <div class="inner">
                 <h2>Cosas que te quiero decir</h2>
-                <div class="cards">
-                    {% for frase in frases %}<button class="card" aria-label="Voltear tarjeta"><div class="card-inner"><div class="card-face card-front">❤</div><div class="card-face card-back">{{ frase.texto }}</div></div></button>
-                    {% endfor %}
-                </div>
+                <div class="cards" id="cards"></div>
                 <p class="hint">Toca cada tarjeta para voltearla</p>
             </div>
         </section>
@@ -94,11 +85,11 @@
     <div class="paper" id="paper" role="dialog" aria-modal="true" aria-label="Carta">
         <article class="sheet">
             <button class="close" id="closeLetter" aria-label="Guardar la carta">✕</button>
-            <h3>{{ carta.saludo }}</h3>
-            {% for parrafo in carta.parrafos %}<p style="--i:{{ forloop.counter0 }}">{{ parrafo|linebreaksbr }}</p>
-            {% endfor %}<footer style="--i:{{ carta.parrafos|length }}">
+            <h3 id="saludo"></h3>
+            <div id="parrafos"></div>
+            <footer>
                 <span>Con todo mi amor,</span>
-                <strong>{{ carta.firma }}</strong>
+                <strong id="firma"></strong>
             </footer>
         </article>
     </div>
@@ -111,6 +102,8 @@
         <button data-go="4"><span>💬</span>Frases</button>
     </nav>
 
-    <script src="{% static 'carta/script.js' %}"></script>
+    <!-- Todo el texto, fotos y videos se cambian en contenido.js -->
+    <script src="contenido.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
