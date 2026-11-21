@@ -1,52 +1,6 @@
 const $ = s => document.querySelector(s);
 const song = $('#song');
 
-// 0. Llenar la página con lo que hay en contenido.js
-if (typeof CONTENIDO === 'undefined') {
-    document.body.innerHTML = '<p style="padding:40px;text-align:center">Hay un error en contenido.js: revisa que no falte una coma o una comilla `.</p>';
-    throw new Error('contenido.js no cargó');
-}
-const C = CONTENIDO;
-const crear = (tag, clase, texto) => {
-    const el = document.createElement(tag);
-    if (clase) el.className = clase;
-    if (texto !== undefined) el.textContent = texto;
-    return el;
-};
-
-$('#introTitle').textContent = 'Para ti, ' + C.para;
-$('#envTo').textContent = 'Para ' + C.para;
-$('#seal').textContent = C.firma[0] + '&' + C.para[0];
-$('#saludo').textContent = C.saludo;
-$('#firma').textContent = C.firma;
-C.carta.forEach((texto, i) => {
-    const p = crear('p', '', texto);
-    p.style.setProperty('--i', i);
-    $('#parrafos').appendChild(p);
-});
-$('.sheet footer').style.setProperty('--i', C.carta.length);
-
-C.fotos.forEach((f, i) => {
-    const fig = crear('figure', 'polaroid');
-    const img = crear('img');
-    img.src = f.archivo;
-    img.alt = 'Foto ' + (i + 1);
-    fig.append(img, crear('figcaption', '', f.texto));
-    $('#photos').appendChild(fig);
-});
-$('#photoCount').textContent = C.fotos.length ? '1 / ' + C.fotos.length : '';
-if (C.fotos.length) $('.vinyl-label').style.backgroundImage = `url("${C.fotos[C.fotos.length - 1].archivo}")`;
-
-song.src = C.cancion;
-$('#songName').textContent = C.nombreCancion;
-
-C.videos.forEach(v => {
-    const video = crear('video');
-    Object.assign(video, { src: v, controls: true, playsInline: true, preload: 'metadata' });
-    $('#videoList').appendChild(video);
-});
-if (!C.videos.length) $('#videoList').appendChild(crear('p', 'hint', 'Pronto habrá videos aquí 🎬'));
-
 // 1. Corazones que suben por el fondo
 function corazonFlotante() {
     const h = document.createElement('span');
@@ -102,7 +56,7 @@ document.addEventListener('keydown', e => {
 $('#introHeart').addEventListener('click', () => {
     explosion(innerWidth / 2, innerHeight / 2, 30);
     $('#intro').classList.add('open');
-    song.play().catch(() => {}); // si aún no subes cancion.mp3, no pasa nada
+    song.play().catch(() => {}); // si aún no hay canción, no pasa nada
 });
 
 // 5. Carta: romper el sello, abrir el sobre y desplegar la carta
@@ -165,18 +119,9 @@ song.addEventListener('timeupdate', () => {
 $('#progress').addEventListener('input', e => {
     if (song.duration) song.currentTime = e.target.value / 100 * song.duration;
 });
-song.addEventListener('error', () => { $('#songName').textContent = 'Sube tu canción a la carpeta musica'; });
 
 // Si pone un video, pausamos la canción para que no se mezclen
 document.querySelectorAll('video').forEach(v => v.addEventListener('play', () => song.pause()));
 
 // 8. Frases: tarjetas que se voltean
-C.frases.forEach(f => {
-    const c = crear('button', 'card');
-    c.setAttribute('aria-label', 'Voltear tarjeta');
-    const inner = crear('div', 'card-inner');
-    inner.append(crear('div', 'card-face card-front', '❤'), crear('div', 'card-face card-back', f));
-    c.appendChild(inner);
-    c.addEventListener('click', () => c.classList.toggle('flipped'));
-    $('#cards').appendChild(c);
-});
+document.querySelectorAll('.card').forEach(c => c.addEventListener('click', () => c.classList.toggle('flipped')));
